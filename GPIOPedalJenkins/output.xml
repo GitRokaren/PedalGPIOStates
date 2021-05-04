@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.9.2 on win32)" generated="20210504 17:47:46.127" rpa="false">
+<suite id="s1" name="GPIOPedalJenkins" source="C:\Users\jeffe\Desktop\Eclipse_2021\Eclipse_2021_workspace\GPIOPedalJenkins">
+<suite id="s1-s1" name="GPIOPedal" source="C:\Users\jeffe\Desktop\Eclipse_2021\Eclipse_2021_workspace\GPIOPedalJenkins\GPIOPedal">
+<suite id="s1-s1-s1" name="GPIOPedal" source="C:\Users\jeffe\Desktop\Eclipse_2021\Eclipse_2021_workspace\GPIOPedalJenkins\GPIOPedal\GPIOPedal.robot">
+<test id="s1-s1-s1-t1" name="RunPedal">
+<kw name="StartOutConf">
+<kw name="Set Out Pin" library="RPi_GPIOZERO">
+<arguments>
+<arg>${18} #Setting GPIO18 to an out pin</arg>
+</arguments>
+<assign>
+<var>${Pin18}</var>
+</assign>
+<msg timestamp="20210504 17:47:46.689" level="INFO">C:\Users\jeffe\AppData\Local\Programs\Python\Python39\lib\site-packages\gpiozero\devices.py:288: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+C:\Users\jeffe\AppData\Local\Programs\Python\Python39\lib\site-packages\gpiozero\devices.py:288: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+C:\Users\jeffe\AppData\Local\Programs\Python\Python39\lib\site-packages\gpiozero\devices.py:288: PinFactoryFallback: Falling back from rpio: No module named 'RPIO'
+  warnings.warn(
+C:\Users\jeffe\AppData\Local\Programs\Python\Python39\lib\site-packages\gpiozero\devices.py:288: PinFactoryFallback: Falling back from pigpio: No module named 'pigpio'
+  warnings.warn(
+C:\Users\jeffe\AppData\Local\Programs\Python\Python39\lib\site-packages\gpiozero\devices.py:288: PinFactoryFallback: Falling back from native: [Errno 2] No such file or directory: '/proc/cpuinfo'
+  warnings.warn(</msg>
+<msg timestamp="20210504 17:47:46.694" level="FAIL">BadPinFactory: Unable to load any default pin factory!</msg>
+<status status="FAIL" starttime="20210504 17:47:46.611" endtime="20210504 17:47:46.695"></status>
+</kw>
+<status status="FAIL" starttime="20210504 17:47:46.525" endtime="20210504 17:47:46.704"></status>
+</kw>
+<status status="FAIL" starttime="20210504 17:47:46.522" endtime="20210504 17:47:46.706" critical="yes">BadPinFactory: Unable to load any default pin factory!</status>
+</test>
+<doc>Version 1.0 of the Robotframework GPIO on RPi</doc>
+<status status="FAIL" starttime="20210504 17:47:46.354" endtime="20210504 17:47:46.709"></status>
+</suite>
+<status status="FAIL" starttime="20210504 17:47:46.343" endtime="20210504 17:47:46.712"></status>
+</suite>
+<status status="FAIL" starttime="20210504 17:47:46.275" endtime="20210504 17:47:46.717"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="GPIOPedalJenkins">GPIOPedalJenkins</stat>
+<stat pass="0" fail="1" id="s1-s1" name="GPIOPedal">GPIOPedalJenkins.GPIOPedal</stat>
+<stat pass="0" fail="1" id="s1-s1-s1" name="GPIOPedal">GPIOPedalJenkins.GPIOPedal.GPIOPedal</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
