@@ -5,7 +5,7 @@ from gpiozero.input_devices import Button
 class RPi_GPIOZERO(object):
 #This class represents a library for GPIO integration to Robotframework tasks.
 #The integration is done thanks to the gpiozero library.
-    ROBOT_LIBRARY_VERSION = 1.1
+    ROBOT_LIBRARY_VERSION = 1.3
 
     def __init__(self):
         pass
