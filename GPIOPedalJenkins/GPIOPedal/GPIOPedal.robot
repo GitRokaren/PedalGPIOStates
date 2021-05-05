@@ -100,6 +100,7 @@ CheckStates
     
 CheckState0
     [Arguments]    ${PinIn1}    ${PinIn2}
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    Checks: ${Check1} & ${Check2} Vs: ${Off}    
@@ -111,6 +112,7 @@ CheckState0
     
 CheckState1
     [Arguments]    ${PinIn1}    ${PinIn2}
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${Off} & ${On}
@@ -122,6 +124,7 @@ CheckState1
     
 CheckState2
     [Arguments]    ${PinIn1}    ${PinIn2}
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${On} & ${Off} 
@@ -133,6 +136,7 @@ CheckState2
     
 CheckState3
     [Arguments]    ${PinIn1}    ${PinIn2}
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${On} 
