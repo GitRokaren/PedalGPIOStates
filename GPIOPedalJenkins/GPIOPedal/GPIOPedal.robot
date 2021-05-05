@@ -24,23 +24,23 @@ RunPedal
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${3}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail  
-    StopTransfer    ${Pin18}
+    #StopTransfer    ${Pin18}
     Sleep    5  
-    StartTransfer    ${Pin18}      
+    #StartTransfer    ${Pin18}      
     RequestStates    ${Pin17}    ${Pin22}    ${2}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${2}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail    
-    StopTransfer    ${Pin18}
+    #StopTransfer    ${Pin18}
     Sleep    5  
-    StartTransfer    ${Pin18}   
+    #StartTransfer    ${Pin18}   
     RequestStates    ${Pin17}    ${Pin22}    ${1}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${1}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail    
-    StopTransfer    ${Pin18}
+    #StopTransfer    ${Pin18}
     Sleep    5     
-    StartTransfer    ${Pin18}
+    #StartTransfer    ${Pin18}
     RequestStates    ${Pin17}    ${Pin22}    ${0}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${0}
     Log    ${result}    
@@ -75,21 +75,25 @@ RequestState0
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
     Turn Off Pin    ${PinOut2} 
+    Sleep    0.1    
     
 RequestState1
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
     Turn On Pin    ${PinOut2}
+    Sleep    0.1    
     
 RequestState2
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn On Pin    ${PinOut1}
     Turn Off Pin    ${PinOut2}
+    Sleep    0.1    
     
 RequestState3
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn On Pin    ${PinOut1}
     Turn On Pin    ${PinOut2}
+    Sleep    0.1    
     
 CheckStates
     [Arguments]    ${PinIn1}    ${PinIn2}    ${StateNr}
