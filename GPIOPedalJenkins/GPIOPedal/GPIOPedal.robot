@@ -1,6 +1,7 @@
 *** Settings ***
-Documentation    Version 1.4 of the Robotframework GPIO on RPi 
+Documentation    Version 1.4  of the Robotframework GPIO on RPi 
 Library    RPi_GPIOZERO
+Library    StateCheck
 Library    Collections    
 
 *** Variables ***
@@ -91,10 +92,16 @@ RequestState3
     
 CheckStates
     [Arguments]    ${PinIn1}    ${PinIn2}    ${StateNr}
-    Run Keyword If    ${StateNr}==${0}    CheckState0    ${PinIn1}    ${PinIn2}   
-    Run Keyword If    ${StateNr}==${1}    CheckState1    ${PinIn1}    ${PinIn2} 
-    Run Keyword If    ${StateNr}==${2}    CheckState2    ${PinIn1}    ${PinIn2} 
-    Run Keyword If    ${StateNr}==${3}    CheckState3    ${PinIn1}    ${PinIn2}  
+    Sleep    0.1    
+    ${Check1}=    Read In Pin    ${PinIn1}
+    ${Check2}=    Read In Pin    ${PinIn2}
+    #Run Keyword If    ${StateNr}==${0}    CheckState0    ${PinIn1}    ${PinIn2}   
+    #Run Keyword If    ${StateNr}==${1}    CheckState1    ${PinIn1}    ${PinIn2} 
+    #Run Keyword If    ${StateNr}==${2}    CheckState2    ${PinIn1}    ${PinIn2} 
+    #Run Keyword If    ${StateNr}==${3}    CheckState3    ${PinIn1}    ${PinIn2}  
+    ${RealState}=    State Checker    ${Check1}    ${Check2}
+    ${Result}=    Evaluate    ${RealState}==${StateNr}    
+    [Return]    ${Result}
     
 CheckState0
     [Arguments]    ${PinIn1}    ${PinIn2}
@@ -102,11 +109,12 @@ CheckState0
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    Checks: ${Check1} & ${Check2} Vs: ${Off}    
-    ${result}=    Evaluate    ${Check1}==${Off} & ${Check2}==${Off}  #State1 = 00 (or 11 due to reverse logic)
-    Log    ${result} 
-    Run Keyword If    ${result}==False    StateIncorrect   
-    Run Keyword If    ${result}    StateCorrect 
-    [Return]    ${result}   
+    ${result1}=    Evaluate    ${Check1}==${Off}    #State1 = 00 (or 11 due to reverse logic)
+    ${result2}=    Evaluate    ${Check2}==${Off}    
+    ${Result}=    Evaluate    ${result1}==${result2}    
+    Run Keyword If    ${Result}==False    StateIncorrect   
+    Run Keyword If    ${Result}    StateCorrect 
+    [Return]    ${Result}   
     
 CheckState1
     [Arguments]    ${PinIn1}    ${PinIn2}
@@ -114,11 +122,12 @@ CheckState1
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${Off} & ${On}
-    ${result}=    Evaluate    ${Check1}==${Off} & ${Check2}==${On}  #State2 = 01 (or 10 due to reverse logic)
-    Log    ${result}    
-    Run Keyword If    ${result}==False    StateIncorrect   
-    Run Keyword If    ${result}    StateCorrect 
-    [Return]    ${result}   
+    ${result1}=    Evaluate    ${Check1}==${Off}    #State2 = 01 (or 10 due to reverse logic)
+    ${result2}=    Evaluate    ${Check2}==${On}    
+    ${Result}=    Evaluate    ${result1}==${result2}    
+    Run Keyword If    ${Result}==False    StateIncorrect   
+    Run Keyword If    ${Result}    StateCorrect 
+    [Return]    ${Result}    
     
 CheckState2
     [Arguments]    ${PinIn1}    ${PinIn2}

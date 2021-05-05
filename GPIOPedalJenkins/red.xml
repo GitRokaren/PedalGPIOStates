@@ -3,6 +3,7 @@
     <configVersion>2</configVersion>
     <relativeTo>WORKSPACE</relativeTo>
     <referencedLibrary type="PYTHON" name="RPi_GPIOZERO" path="GPIOPedalJenkins/GPIOPedal/RPi_GPIOZERO.py" dynamic="false"/>
+    <referencedLibrary type="PYTHON" name="StateCheck" path="GPIOPedalJenkins/GPIOPedal/StateCheck.py" dynamic="false"/>
     <pythonpath/>
     <classpath/>
     <excludedForValidation/>
