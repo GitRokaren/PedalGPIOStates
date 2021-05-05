@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Version 1.3 of the Robotframework GPIO on RPi 
+Documentation    Version 1.4 of the Robotframework GPIO on RPi 
 Library    RPi_GPIOZERO
 Library    Collections    
 
@@ -18,29 +18,23 @@ RunPedal
     ${Pin23}=    Set In Pin    ${23}    #Setting GPIO23 to an in pin
     ${Pin24}=    Set In Pin    ${24}    #Setting GPIO24 to an in pin
     @{InPins}=    Create List    ${Pin23}    ${Pin24}
-    #Sleep    5    
+    Sleep    1    
     StartTransfer    ${Pin18}
     RequestStates    ${Pin17}    ${Pin22}    ${3}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${3}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail  
-    #StopTransfer    ${Pin18}
-    #Sleep    5  
-    #StartTransfer    ${Pin18}      
+    #Sleep    5       
     RequestStates    ${Pin17}    ${Pin22}    ${2}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${2}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail    
-    #StopTransfer    ${Pin18}
     #Sleep    5  
-    #StartTransfer    ${Pin18}   
     RequestStates    ${Pin17}    ${Pin22}    ${1}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${1}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail    
-    #StopTransfer    ${Pin18}
     #Sleep    5     
-    #StartTransfer    ${Pin18}
     RequestStates    ${Pin17}    ${Pin22}    ${0}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${0}
     Log    ${result}    
@@ -75,25 +69,25 @@ RequestState0
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
     Turn Off Pin    ${PinOut2} 
-    #Sleep    0.1    
+    Sleep    0.1    
     
 RequestState1
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
     Turn On Pin    ${PinOut2}
-    #Sleep    0.1    
+    Sleep    0.1    
     
 RequestState2
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn On Pin    ${PinOut1}
     Turn Off Pin    ${PinOut2}
-    #Sleep    0.1    
+    Sleep    0.1    
     
 RequestState3
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn On Pin    ${PinOut1}
     Turn On Pin    ${PinOut2}
-    #Sleep    0.1    
+    Sleep    0.1    
     
 CheckStates
     [Arguments]    ${PinIn1}    ${PinIn2}    ${StateNr}
@@ -104,7 +98,7 @@ CheckStates
     
 CheckState0
     [Arguments]    ${PinIn1}    ${PinIn2}
-    #Sleep    0.1    
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    Checks: ${Check1} & ${Check2} Vs: ${Off}    
@@ -116,7 +110,7 @@ CheckState0
     
 CheckState1
     [Arguments]    ${PinIn1}    ${PinIn2}
-    #Sleep    0.1    
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${Off} & ${On}
@@ -128,7 +122,7 @@ CheckState1
     
 CheckState2
     [Arguments]    ${PinIn1}    ${PinIn2}
-    #Sleep    0.1    
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${On} & ${Off} 
@@ -140,7 +134,7 @@ CheckState2
     
 CheckState3
     [Arguments]    ${PinIn1}    ${PinIn2}
-    #Sleep    0.1    
+    Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
     Log    ${Check1} & ${Check2} Vs: ${On} 
