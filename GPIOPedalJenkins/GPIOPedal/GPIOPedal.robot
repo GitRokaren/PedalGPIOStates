@@ -18,28 +18,28 @@ RunPedal
     ${Pin23}=    Set In Pin    ${23}    #Setting GPIO23 to an in pin
     ${Pin24}=    Set In Pin    ${24}    #Setting GPIO24 to an in pin
     @{InPins}=    Create List    ${Pin23}    ${Pin24}
-    #Sleep    1    
+    Sleep    5    
     StartTransfer    ${Pin18}
     RequestStates    ${Pin17}    ${Pin22}    ${3}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${3}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail  
     StopTransfer    ${Pin18}    ${Pin17}    ${Pin22}  
-    #Sleep    10  
+    Sleep    5  
     StartTransfer    ${Pin18}      
     RequestStates    ${Pin17}    ${Pin22}    ${2}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${2}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail    
     StopTransfer    ${Pin18}    ${Pin17}    ${Pin22}
-    #Sleep    10  
+    Sleep    5  
     StartTransfer    ${Pin18}   
     RequestStates    ${Pin17}    ${Pin22}    ${1}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${1}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail    
     StopTransfer    ${Pin18}    ${Pin17}    ${Pin22}
-    #Sleep    10     
+    Sleep    5     
     StartTransfer    ${Pin18}
     RequestStates    ${Pin17}    ${Pin22}    ${0}
     ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${0}
