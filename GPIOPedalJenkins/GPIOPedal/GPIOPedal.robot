@@ -10,38 +10,21 @@ ${Off}=    ${1}    #The numbers are reversed due to the GPIOzero logic, where in
 
 
 *** Test Cases ***
-RunPedal
+Main
     ${Pin18}=    Set Out Pin    ${18}    #Setting GPIO18 to an out pin
     ${Pin17}=    Set Out Pin    ${17}    #Setting GPIO17 to an out pin
     ${Pin22}=    Set Out Pin    ${22}    #Setting GPIO22 to an out pin
-    StopTransfer    ${Pin18}   #Safety measure, "clean" pins
+    StopTransfer    ${Pin18}   #Safety measure, "clean" pin
     @{OutPins}=    Create List    ${Pin18}    ${Pin17}    ${Pin22}
+
     ${Pin23}=    Set In Pin    ${23}    #Setting GPIO23 to an in pin
     ${Pin24}=    Set In Pin    ${24}    #Setting GPIO24 to an in pin
     @{InPins}=    Create List    ${Pin23}    ${Pin24}
-    Sleep    1    
-    StartTransfer    ${Pin18}
-    RequestStates    ${Pin17}    ${Pin22}    ${3}
-    ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${3}
-    Log    ${result}    
-    Run Keyword If    ${result}==False    Fail  
-    #Sleep    5       
-    RequestStates    ${Pin17}    ${Pin22}    ${2}
-    ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${2}
-    Log    ${result}    
-    Run Keyword If    ${result}==False    Fail    
-    #Sleep    5  
-    RequestStates    ${Pin17}    ${Pin22}    ${1}
-    ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${1}
-    Log    ${result}    
-    Run Keyword If    ${result}==False    Fail    
-    #Sleep    5     
-    RequestStates    ${Pin17}    ${Pin22}    ${0}
-    ${result}=    CheckStates    ${Pin23}    ${Pin24}    ${0}
-    Log    ${result}    
-    Run Keyword If    ${result}==False    Fail    
-    StopTransfer    ${Pin18}
-    #Sleep    10     
+    
+    Sleep    1   
+    
+    RunPedal    ${Pin18}    ${Pin17}    ${Pin22}    ${Pin23}    ${Pin24}
+    
     CloseOutPins    @{OutPins}
     CloseInPins    @{InPins}
 
@@ -49,6 +32,35 @@ RunPedal
 #18=Out, Start the test Pin
 #23,24=in, Which state
 #17,22=out, Requested State
+
+RunPedal
+    [Arguments]    ${ReadyPin}    ${PinOut1}    ${PinOut2}    ${PinIn1}    ${PinIn2}
+    StartTransfer    ${ReadyPin}
+    RequestStates    ${PinOut1}    ${PinOut2}    ${3}
+    ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${3}
+    Log    ${result}    
+    Run Keyword If    ${result}    HW Failure    
+    Run Keyword If    ${result}==False    Fail    
+    
+    RequestStates    ${PinOut1}    ${PinOut2}    ${2}
+    ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${2}
+    Log    ${result}    
+    Run Keyword If    ${result}    Pedal Down 
+    Run Keyword If    ${result}==False    Fail    
+   
+    RequestStates    ${PinOut1}    ${PinOut2}    ${1}
+    ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${1}
+    Log    ${result}    
+    Run Keyword If    ${result}    Pedal Up 
+    Run Keyword If    ${result}==False    Fail 
+      
+    RequestStates    ${PinOut1}    ${PinOut2}    ${0}
+    ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${0}
+    Log    ${result}    
+    Run Keyword If    ${result}==False    Fail  
+    Run Keyword If    ${result}    Disconnect   
+    StopTransfer    ${ReadyPin}
+
 StartTransfer
     [Arguments]    ${PinReady}
     Turn On Pin    ${PinReady}    #this is the pin that will tell the other Pi to get ready for transfer
@@ -95,69 +107,21 @@ CheckStates
     Sleep    0.1    
     ${Check1}=    Read In Pin    ${PinIn1}
     ${Check2}=    Read In Pin    ${PinIn2}
-    #Run Keyword If    ${StateNr}==${0}    CheckState0    ${PinIn1}    ${PinIn2}   
-    #Run Keyword If    ${StateNr}==${1}    CheckState1    ${PinIn1}    ${PinIn2} 
-    #Run Keyword If    ${StateNr}==${2}    CheckState2    ${PinIn1}    ${PinIn2} 
-    #Run Keyword If    ${StateNr}==${3}    CheckState3    ${PinIn1}    ${PinIn2}  
     ${RealState}=    State Checker    ${Check1}    ${Check2}
     ${Result}=    Evaluate    ${RealState}==${StateNr}    
     [Return]    ${Result}
     
-CheckState0
-    [Arguments]    ${PinIn1}    ${PinIn2}
-    Sleep    0.1    
-    ${Check1}=    Read In Pin    ${PinIn1}
-    ${Check2}=    Read In Pin    ${PinIn2}
-    Log    Checks: ${Check1} & ${Check2} Vs: ${Off}    
-    ${result1}=    Evaluate    ${Check1}==${Off}    #State1 = 00 (or 11 due to reverse logic)
-    ${result2}=    Evaluate    ${Check2}==${Off}    
-    ${Result}=    Evaluate    ${result1}==${result2}    
-    Run Keyword If    ${Result}==False    StateIncorrect   
-    Run Keyword If    ${Result}    StateCorrect 
-    [Return]    ${Result}   
-    
-CheckState1
-    [Arguments]    ${PinIn1}    ${PinIn2}
-    Sleep    0.1    
-    ${Check1}=    Read In Pin    ${PinIn1}
-    ${Check2}=    Read In Pin    ${PinIn2}
-    Log    ${Check1} & ${Check2} Vs: ${Off} & ${On}
-    ${result1}=    Evaluate    ${Check1}==${Off}    #State2 = 01 (or 10 due to reverse logic)
-    ${result2}=    Evaluate    ${Check2}==${On}    
-    ${Result}=    Evaluate    ${result1}==${result2}    
-    Run Keyword If    ${Result}==False    StateIncorrect   
-    Run Keyword If    ${Result}    StateCorrect 
-    [Return]    ${Result}    
-    
-CheckState2
-    [Arguments]    ${PinIn1}    ${PinIn2}
-    Sleep    0.1    
-    ${Check1}=    Read In Pin    ${PinIn1}
-    ${Check2}=    Read In Pin    ${PinIn2}
-    Log    ${Check1} & ${Check2} Vs: ${On} & ${Off} 
-    ${result}=    Evaluate    ${Check1}==${On} & ${Check2}==${Off}  #State3 = 10 (or 01 due to reverse logic)
-    Log    ${result} 
-    Run Keyword If    ${result}==False    StateIncorrect   
-    Run Keyword If    ${result}    StateCorrect  
-    [Return]    ${result}   
-    
-CheckState3
-    [Arguments]    ${PinIn1}    ${PinIn2}
-    Sleep    0.1    
-    ${Check1}=    Read In Pin    ${PinIn1}
-    ${Check2}=    Read In Pin    ${PinIn2}
-    Log    ${Check1} & ${Check2} Vs: ${On} 
-    ${result}=    Evaluate    ${Check1}==${On} & ${Check2}==${On}  #State4 = 11 (or 00 due to reverse logic)
-    Log    ${result} 
-    Run Keyword If    ${result}==False    StateIncorrect   
-    Run Keyword If    ${result}    StateCorrect 
-    [Return]    ${result}   
-    
-StateIncorrect
-    Log    The test failed due to the incoming state was not as expected    
+HW Failure
+    Log    The pedal is experiencing hardware failure   
 
-StateCorrect
-    Log    The state was as expected    
+Disconnect
+    Log    The pedal is disconnected
+    
+Pedal Down
+    Log    The pedal is down    
+    
+Pedal Up
+    Log    The pedal is up        
     
 CloseOutPins
     [Arguments]    @{OutPins}
