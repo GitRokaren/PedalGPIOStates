@@ -29,7 +29,7 @@ class RPi_GPIOZERO(object):
     def TurnOnPin(self, LED):
         print("Before")
         print(LED.is_active)
-        if(LED.value == 0):
+        if(LED.is_active==False):
             LED.on()
             print("After")
             print(LED.is_active)
@@ -39,7 +39,7 @@ class RPi_GPIOZERO(object):
     def TurnOffPin(self, LED):
         print("Before")
         print(LED.is_active)
-        if(LED.value == 1):
+        if(LED.is_active):
             LED.off()
             print("After")
             print(LED.is_active)
