@@ -5,7 +5,7 @@ from gpiozero.input_devices import Button
 class RPi_GPIOZERO(object):
 #This class represents a library for GPIO integration to Robotframework tasks.
 #The integration is done thanks to the gpiozero library.
-    ROBOT_LIBRARY_VERSION = 1.0
+    ROBOT_LIBRARY_VERSION = 1.1
 
     def __init__(self):
         pass
@@ -27,12 +27,14 @@ class RPi_GPIOZERO(object):
         #In gpiozero the input pins are declared as a Button
     
     def TurnOnPin(self, LED):
-        LED.on()
+        if(LED.value == 0):
+            LED.on()
         #This function is used to turn on an output pin, the pin which is supposed to turn on
         #is entered as a parameter
         
     def TurnOffPin(self, LED):
-        LED.off()
+        if(LED.value == 1):
+            LED.off()
         #This function is used to turn off an output pin, the pin which is supposed to turn off
         #is entered as a parameter
         
