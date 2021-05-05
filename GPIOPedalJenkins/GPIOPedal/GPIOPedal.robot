@@ -13,7 +13,7 @@ RunPedal
     ${Pin18}=    Set Out Pin    ${18}    #Setting GPIO18 to an out pin
     ${Pin17}=    Set Out Pin    ${17}    #Setting GPIO17 to an out pin
     ${Pin22}=    Set Out Pin    ${22}    #Setting GPIO22 to an out pin
-    StopTransfer    ${Pin18}    ${Pin17}    ${Pin22}    #
+    StopTransfer    ${Pin18}    ${Pin17}    ${Pin22}    #Safety measure, "clean" pins
     @{OutPins}=    Create List    ${Pin18}    ${Pin17}    ${Pin22}
     ${Pin23}=    Set In Pin    ${23}    #Setting GPIO23 to an in pin
     ${Pin24}=    Set In Pin    ${24}    #Setting GPIO24 to an in pin

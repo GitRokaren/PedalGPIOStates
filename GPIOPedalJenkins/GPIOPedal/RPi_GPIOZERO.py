@@ -27,14 +27,22 @@ class RPi_GPIOZERO(object):
         #In gpiozero the input pins are declared as a Button
     
     def TurnOnPin(self, LED):
+        print("Before")
+        print(LED.value)
         if(LED.value == 0):
             LED.on()
+            print("After")
+            print(LED.value)
         #This function is used to turn on an output pin, the pin which is supposed to turn on
         #is entered as a parameter
         
     def TurnOffPin(self, LED):
+        print("Before")
+        print(LED.value)
         if(LED.value == 1):
             LED.off()
+            print("After")
+            print(LED.Value)
         #This function is used to turn off an output pin, the pin which is supposed to turn off
         #is entered as a parameter
         
