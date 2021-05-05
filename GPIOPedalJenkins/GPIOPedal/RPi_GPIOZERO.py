@@ -28,21 +28,21 @@ class RPi_GPIOZERO(object):
     
     def TurnOnPin(self, LED):
         print("Before")
-        print(LED.value)
+        print(LED.is_active)
         if(LED.value == 0):
             LED.on()
             print("After")
-            print(LED.value)
+            print(LED.is_active)
         #This function is used to turn on an output pin, the pin which is supposed to turn on
         #is entered as a parameter
         
     def TurnOffPin(self, LED):
         print("Before")
-        print(LED.value)
+        print(LED.is_active)
         if(LED.value == 1):
             LED.off()
             print("After")
-            print(LED.Value)
+            print(LED.is_active)
         #This function is used to turn off an output pin, the pin which is supposed to turn off
         #is entered as a parameter
         
