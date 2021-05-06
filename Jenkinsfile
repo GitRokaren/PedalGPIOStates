@@ -27,7 +27,7 @@ pipeline {
         //End of test, publish report
         stage('End of Program') {
             steps {
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/GPIOPedalPipeline/GPIOPedalJenkins/GPIOPedal', reportFiles: 'index.html', reportName: 'HTML Pedal Robot Report', reportTitles: ''])
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '/var/lib/jenkins/workspace/GPIOPedalPipeline/GPIOPedalJenkins/GPIOPedal', reportFiles: 'report.html', reportName: 'HTML Pedal Robot Report', reportTitles: 'Reobot Report'])
             }
         }            
     }
