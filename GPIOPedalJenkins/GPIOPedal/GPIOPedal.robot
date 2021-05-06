@@ -31,6 +31,7 @@ Main
     CloseOutPins    @{OutPins}
     CloseInPins    @{InPins}
 
+
 *** Keywords ***
 #18=Out, Start the test Pin
 #23,24=in, Which state
