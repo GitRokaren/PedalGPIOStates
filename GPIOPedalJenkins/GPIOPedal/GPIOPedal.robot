@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation    Version 1.4  of the Robotframework GPIO on RPi 
+Documentation    Version 2.0  of the Robotframework GPIO on RPi 
 Library    RPi_GPIOZERO
 Library    StateCheck
 Library    Collections    
+Suite Setup    Start Application
+Suite Teardown    Stop Application
+
 
 *** Variables ***
 ${On}=    ${0} 
@@ -33,6 +36,14 @@ Main
 #23,24=in, Which state
 #17,22=out, Requested State
 
+Start Application
+    Log    Starting the pedal application, hardcoded state changing  
+    Sleep    1      
+    
+Stop Application
+    Log    Application run over, view log for details  
+    Sleep    1    
+  
 RunPedal
     [Arguments]    ${ReadyPin}    ${PinOut1}    ${PinOut2}    ${PinIn1}    ${PinIn2}
     StartTransfer    ${ReadyPin}
