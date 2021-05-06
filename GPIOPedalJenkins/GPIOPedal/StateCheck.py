@@ -1,5 +1,5 @@
 class StateCheck(object):
-
+#This class represents a small library containing one function which returns the current state by reading the pins.
     ROBOT_LIBRARY_VERSION = 1.0
 
     def __init__(self):

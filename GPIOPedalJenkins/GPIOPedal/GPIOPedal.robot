@@ -1,10 +1,10 @@
 *** Settings ***
-Documentation    Version 2.0  of the Robotframework GPIO on RPi 
+Documentation    Version 2.1  of the Robotframework GPIO on RPi 
 Library    RPi_GPIOZERO
 Library    StateCheck
 Library    Collections    
-Suite Setup    Start Application
-Suite Teardown    Stop Application
+Test Setup    Start Application
+Test Teardown    Stop Application
 
 
 *** Variables ***
@@ -48,25 +48,25 @@ Stop Application
 RunPedal
     [Arguments]    ${ReadyPin}    ${PinOut1}    ${PinOut2}    ${PinIn1}    ${PinIn2}
     StartTransfer    ${ReadyPin}
-    RequestStates    ${PinOut1}    ${PinOut2}    ${3}
+    SetStates    ${PinOut1}    ${PinOut2}    ${3}
     ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${3}
     Log    ${result}    
     Run Keyword If    ${result}    HW Failure    
     Run Keyword If    ${result}==False    Fail    
     
-    RequestStates    ${PinOut1}    ${PinOut2}    ${2}
+    SetStates    ${PinOut1}    ${PinOut2}    ${2}
     ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${2}
     Log    ${result}    
     Run Keyword If    ${result}    Pedal Down 
     Run Keyword If    ${result}==False    Fail    
    
-    RequestStates    ${PinOut1}    ${PinOut2}    ${1}
+    SetStates    ${PinOut1}    ${PinOut2}    ${1}
     ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${1}
     Log    ${result}    
     Run Keyword If    ${result}    Pedal Up 
     Run Keyword If    ${result}==False    Fail 
       
-    RequestStates    ${PinOut1}    ${PinOut2}    ${0}
+    SetStates    ${PinOut1}    ${PinOut2}    ${0}
     ${result}=    CheckStates    ${PinIn1}    ${PinIn2}    ${0}
     Log    ${result}    
     Run Keyword If    ${result}==False    Fail  
@@ -83,32 +83,32 @@ StopTransfer
   #This function is used to "reset" the Pins so that they're ready to send the next
                                 #request and fetch the state
   
-RequestStates
+SetStates
     [Arguments]    ${PinOut1}    ${PinOut2}    ${StateNr} 
-    Run Keyword If    ${StateNr}==${0}    RequestState0    ${PinOut1}    ${PinOut2}   
-    Run Keyword If    ${StateNr}==${1}    RequestState1    ${PinOut1}    ${PinOut2} 
-    Run Keyword If    ${StateNr}==${2}    RequestState2    ${PinOut1}    ${PinOut2} 
-    Run Keyword If    ${StateNr}==${3}    RequestState3    ${PinOut1}    ${PinOut2}  
-  
-RequestState0
+    Run Keyword If    ${StateNr}==${0}    SetState0    ${PinOut1}    ${PinOut2}   
+    Run Keyword If    ${StateNr}==${1}    SetState1    ${PinOut1}    ${PinOut2} 
+    Run Keyword If    ${StateNr}==${2}    SetState2    ${PinOut1}    ${PinOut2} 
+    Run Keyword If    ${StateNr}==${3}    SetState3    ${PinOut1}    ${PinOut2}  
+  #This function will tell the raspberry to switch to a state depending on the argument ${stateNr}
+SetState0
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
     Turn Off Pin    ${PinOut2} 
     Sleep    0.1    
     
-RequestState1
+SetState1
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
     Turn On Pin    ${PinOut2}
     Sleep    0.1    
     
-RequestState2
+SetState2
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn On Pin    ${PinOut1}
     Turn Off Pin    ${PinOut2}
     Sleep    0.1    
     
-RequestState3
+SetState3
     [Arguments]    ${PinOut1}    ${PinOut2}
     Turn On Pin    ${PinOut1}
     Turn On Pin    ${PinOut2}
@@ -122,6 +122,7 @@ CheckStates
     ${RealState}=    State Checker    ${Check1}    ${Check2}
     ${Result}=    Evaluate    ${RealState}==${StateNr}    
     [Return]    ${Result}
+    #This function is used to check if the set-state corresponds with the state that the ctrl panel says it's in 
     
 HW Failure
     Log    The pedal is experiencing hardware failure   
@@ -140,7 +141,7 @@ CloseOutPins
     FOR    ${OutPin}    IN    @{OutPins}
         Shutdown Out Pin    ${OutPin}
     END
-
+#This function is used to turn off the pins in use, to prevent damage of hardware
 CloseInPins
     [Arguments]    @{InPins}
     FOR    ${InPin}    IN    @{InPins}
