@@ -24,5 +24,11 @@ pipeline {
 
             }
         }
+        //End of test, publish report
+        stage('End of Program') {
+            steps {
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/GPIOPedalPipeline/GPIOPedalJenkins/GPIOPedal', reportFiles: 'index.html', reportName: 'HTML Pedal Robot Report', reportTitles: ''])
+            }
+        }            
     }
 }
