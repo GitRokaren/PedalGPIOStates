@@ -1,6 +1,7 @@
 import gpiozero
 from gpiozero.output_devices import LED
 from gpiozero.input_devices import Button
+from gpiozero import MCP3008
 
 class RPi_GPIOZERO(object):
 #This class represents a library for GPIO integration to Robotframework tasks.
@@ -53,3 +54,5 @@ class RPi_GPIOZERO(object):
         Button.close()
         #This function is used to close the input pin in use, so that it doesn't 
         #affect the test when it is supposed to be done
+
+        
