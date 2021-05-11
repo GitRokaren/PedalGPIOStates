@@ -17,8 +17,8 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 dir("${WORKSPACE}/GPIOPedalJenkins/GPIOPedal/"){
-                    sh "python -m robot GPIOPedal.robot"
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '/var/lib/jenkins/workspace/GPIOPedalPipeline/GPIOPedalJenkins/GPIOPedal', reportFiles: 'log.html', reportName: 'HTML Pedal Robot Log', reportTitles: 'Robot Log'])
+                    sh "python -m robot GPIOPedal.robot"
                 }
 
             }
