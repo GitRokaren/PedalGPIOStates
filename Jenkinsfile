@@ -16,9 +16,7 @@ pipeline {
         // Run the test
         stage('Run Unit Tests') {
             steps {
-                sh "ls"
                 dir("${WORKSPACE}/GPIOPedalJenkins/GPIOPedal/"){
-                    sh "ls"
                     sh "python -m robot GPIOPedal.robot"
                 }
 
