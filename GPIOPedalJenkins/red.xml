@@ -4,7 +4,10 @@
     <relativeTo>WORKSPACE</relativeTo>
     <referencedLibrary type="PYTHON" name="RPi_GPIOZERO" path="GPIOPedalJenkins/GPIOPedal/RPi_GPIOZERO.py" dynamic="false"/>
     <referencedLibrary type="PYTHON" name="StateCheck" path="GPIOPedalJenkins/GPIOPedal/StateCheck.py" dynamic="false"/>
-    <pythonpath/>
+    <referencedLibrary type="PYTHON" name="RPiGPIOLib" path="GPIOPedalJenkins/GPIOPedal/RPiGPIOLib.py" dynamic="false"/>
+    <pythonpath>
+        <path location="C:\Users\jeffe\AppData\Local\Programs\Python\Python39\Lib\site-packages\dist\"/>
+    </pythonpath>
     <classpath/>
     <excludedForValidation/>
     <isValidatedFileSizeCheckingEnabled>true</isValidatedFileSizeCheckingEnabled>

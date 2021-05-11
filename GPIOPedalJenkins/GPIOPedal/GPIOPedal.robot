@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    Version 2.1  of the Robotframework GPIO on RPi 
-Library    RPi_GPIOZERO
+#Library    RPi_GPIOZERO
+Library    RPiGPIOLib
 Library    StateCheck
 Library    Collections    
 Test Setup    Start Application
