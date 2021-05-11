@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation    Version 2.1  of the Robotframework GPIO on RPi 
-#Library    RPi_GPIOZERO
-Library    RPiGPIOLib
+Library    RPi_GPIOZERO
 Library    StateCheck
 Library    Collections    
 Test Setup    Start Application
@@ -32,7 +31,7 @@ Main
     CloseOutPins    @{OutPins}
     CloseInPins    @{InPins}
 
-
+    
 *** Keywords ***
 #18=Out, Start the test Pin
 #23,24=in, Which state
