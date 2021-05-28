@@ -137,7 +137,7 @@ Pedal Down
     Log    The pedal is down now   
     
 Pedal Up
-    Log    The pedal is up now       
+    Log    The pedal is up       
     
 CloseOutPins
     [Arguments]               @{OutPins}
