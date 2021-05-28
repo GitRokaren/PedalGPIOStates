@@ -134,7 +134,7 @@ Disconnect
     Log    The pedal is disconnected
     
 Pedal Down
-    Log    The pedal is down now   
+    Log    The pedal is down  
     
 Pedal Up
     Log    The pedal is up       
