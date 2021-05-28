@@ -91,7 +91,7 @@ SetStates
     Run Keyword If    ${StateNr}==${2}    SetState2    ${PinOut1}    ${PinOut2} 
     Run Keyword If    ${StateNr}==${3}    SetState3    ${PinOut1}    ${PinOut2}  
  #This function will tell the raspberry to switch to a 
- #state depending on the argument ${stateNr}
+ #state depending on the argument ${stateNr} 
 SetState0
     [Arguments]     ${PinOut1}    ${PinOut2}
     Turn Off Pin    ${PinOut1}
@@ -134,10 +134,10 @@ Disconnect
     Log    The pedal is disconnected
     
 Pedal Down
-    Log    The pedal is down    
+    Log    The pedal is down now   
     
 Pedal Up
-    Log    The pedal is up        
+    Log    The pedal is up now       
     
 CloseOutPins
     [Arguments]               @{OutPins}
